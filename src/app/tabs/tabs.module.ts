@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { TabsPageRoutingModule } from './tabs-routing.module';
 
 import { TabsPage } from './tabs.page';
+import { MoviePage } from '../movie/movie.page';
+import { CelebrityPage } from '../celebrity/celebrity.page';
+import { ProfilePage } from '../profile/profile.page';
 
 @NgModule({
   imports: [
