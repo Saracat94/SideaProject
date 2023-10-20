@@ -6,7 +6,7 @@ import { Movie } from "src/app/movie/interfaces/movie.interfaces";
     providedIn: 'root'
 })
 export class MovieService {
-    
+
     private movies_list: Movie[] = [
         {
             id: "tt0120804",
@@ -69,12 +69,20 @@ export class MovieService {
             country: []
         }
     ];
-    getById(id: string): Movie | undefined{
-        const movie = this.movies_list.find((movie : Movie)=> movie.id === id);
+
+    getById(id: string): Movie | undefined {
+        const movie = this.movies_list.find((movie: Movie) => movie.id === id);
         return movie;
     }
-    
-    getList(): Movie[]{
+
+    getList(): Movie[] {
         return this.movies_list;
+    }
+
+    update(updatedMovie: Movie): void {
+        const index = this.movies_list.findIndex((movie: Movie) => movie.id === updatedMovie.id);
+        if (index !== -1) {
+            this.movies_list[index] = updatedMovie;
+        }
     }
 }

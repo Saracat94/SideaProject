@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-button fill="clear" class="back" slot="start" router-direction="forward"><ion-back-button>
+                <ion-icon name="arrow-back-outline"></ion-icon></ion-back-button>
+        </ion-button>
+        <ion-title size="large">EDIT MOVIE</ion-title>
+    </ion-toolbar>
+    <form *ngIf="formUser" [formGroup]="formUser" (ngSubmit)="submitForm()">
+        <ion-list>
+            <ion-item>
+                <ion-input label="Titolo:" formControlName="title" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input label="Anno di uscita:" formControlName="year" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input label="Durata:" formControlName="runningTime" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input label="Genere:" formControlName="genres" type="text"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-button type="submit" expand="block" [disabled]="!formUser.valid">Salva</ion-button>
+            </ion-item>
+        </ion-list>
+
+    </form>
+</ion-header>

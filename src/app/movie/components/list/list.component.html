@@ -5,7 +5,7 @@
       </ion-list-header>
     <ion-item-sliding *ngFor = "let movie of movie_list">
         <ion-item-options side="start">
-          <ion-item-option color="success">Edit</ion-item-option>
+          <ion-item-option color="success" (click)="clickMovieEdit(movie.id)">Edit</ion-item-option>
         </ion-item-options>
     
         <ion-item (click)="clickMovie(movie.id)">

@@ -21,4 +21,8 @@ export class MovieListComponent {
         this._router.navigate(['detail', id], {relativeTo:this.route});
       }
 
+      clickMovieEdit(id: string) {
+        this._router.navigate(['edit', id], {relativeTo:this.route});
+      }
+
 }

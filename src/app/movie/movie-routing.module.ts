@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MoviePage } from './movie.page';
-import { MovieListComponent } from './components/list/list.component';
 import { MovieDetailComponent } from './components/detail/detail.component';
-import { Movie } from './interfaces/movie.interfaces';
+import { MovieEditComponent } from './components/edit/edit.component';
 
 const routes: Routes = [
   {
@@ -13,6 +12,10 @@ const routes: Routes = [
   {
     path: 'detail/:id',
     component: MovieDetailComponent,
+  },
+  {
+    path: 'edit/:id',
+    component: MovieEditComponent,
   }
 ];
 
