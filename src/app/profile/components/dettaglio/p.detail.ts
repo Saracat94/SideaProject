@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-dettaglio',
-  templateUrl: 'dettaglio.html',
-  styleUrls: ['dettaglio.scss'],
+  templateUrl: 'p.detail.html',
+  styleUrls: ['p.detail.scss'],
 })
 export class ProfileDettaglioPage {
     constructor () {}

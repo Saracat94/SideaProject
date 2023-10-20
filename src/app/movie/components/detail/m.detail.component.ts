@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Movie } from '../../interfaces/movie.interfaces';
+import { Movie } from '../../../shared/interfaces/movie.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { MovieService } from 'src/app/tabs/services/movie.service';
 
@@ -7,8 +7,8 @@ import { MovieService } from 'src/app/tabs/services/movie.service';
 
 @Component({
     selector: 'app-mdetail',
-    templateUrl: 'detail.component.html',
-    styleUrls: ['detail.component.scss'],
+    templateUrl: 'm.detail.component.html',
+    styleUrls: ['m.detail.component.scss'],
 })
 export class MovieDetailComponent {
 

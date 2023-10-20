@@ -9,6 +9,7 @@ import { TabsPage } from './tabs.page';
 import { MoviePage } from '../movie/movie.page';
 import { CelebrityPage } from '../celebrity/celebrity.page';
 import { ProfilePage } from '../profile/profile.page';
+import { ListComponent } from '../shared/components/list/list.component';
 
 @NgModule({
   imports: [

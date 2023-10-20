@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Movie } from '../../interfaces/movie.interfaces';
+import { Movie } from '../../../shared/interfaces/movie.interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MovieService } from 'src/app/tabs/services/movie.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
