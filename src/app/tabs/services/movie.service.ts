@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 import { Movie } from "src/app/shared/interfaces/movie.interfaces";
 
 
@@ -70,9 +71,16 @@ export class MovieService {
         }
     ];
 
-    getList(): Movie[] {
-        return this.movies_list;
+    private movieList = new Subject<Movie[]>();
+    MovieListObs = this.movieList.asObservable();
+
+    getList (): void {
+        this.movieList.next(this.movies_list)     
     }
+
+    // getList(): Movie[] {
+    //     return this.movies_list;
+    // }
 
     getById(id: string): Movie | undefined {
         const movie = this.movies_list.find((movie: Movie) => movie.id === id);
@@ -84,5 +92,7 @@ export class MovieService {
         if (index !== -1) {
             this.movies_list[index] = updatedMovie;
         }
+
+        this.movieList.next(this.movies_list)  
     }
 }

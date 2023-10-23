@@ -36,10 +36,11 @@ export class MovieEditComponent {
             runningTime: new FormControl(this.movie?.runningTime, Validators.required),
             genres: new FormControl(this.movie?.genres, Validators.required)
         });
+        // this.formUser.valueChanges.subscribe((x) => console.log(x));
     }
     submitForm() {
         console.log(this.formUser)
-        if(this.formUser?.valid){
+        if (this.formUser?.valid) {
             this._movieService.update(this.formUser?.value);
             this._location.back();
         }
