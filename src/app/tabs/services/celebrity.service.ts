@@ -5,6 +5,7 @@ import { Celebrity } from "src/app/shared/interfaces/celebrity.interfaces";
     providedIn: 'root'
 })
 export class CelebrityService {
+    
     private celebrities_list: Celebrity[] = [
         {
             id: "nm0000701",
@@ -70,5 +71,17 @@ export class CelebrityService {
 
     getList(): Celebrity[] {
         return this.celebrities_list;
+    }
+
+    getById(id: string): Celebrity | undefined {
+        const celebrity = this.celebrities_list.find((celebrity: Celebrity) => celebrity.id === id);
+        return celebrity;
+    }
+
+    update(updatedMovie: Celebrity): void {
+        const index = this.celebrities_list.findIndex((movie: Celebrity) => movie.id === updatedMovie.id);
+        if (index !== -1) {
+            this.celebrities_list[index] = updatedMovie;
+        }
     }
 }

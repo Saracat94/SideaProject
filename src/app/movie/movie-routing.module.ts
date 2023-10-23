@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MoviePage } from './movie.page';
 import { MovieDetailComponent } from './components/detail/m.detail.component';
-import { MovieEditComponent } from './components/edit/edit.component';
+import { MovieEditComponent } from './components/edit/m.edit.component';
 
 const routes: Routes = [
   {

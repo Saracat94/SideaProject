@@ -1,31 +1,33 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Movie } from '../../interfaces/movie.interfaces';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Item } from '../../interfaces/list.interfaces';
+import { Celebrity } from '../../interfaces/celebrity.interfaces';
+import { Movie } from '../../interfaces/movie.interfaces';
 
 
 @Component({
-    selector: 'app-mlist',
+    selector: 'app-list',
     templateUrl: 'list.component.html',
     styleUrls: ['list.component.scss'],
 })
 export class ListComponent {
 
-    @Input() movie_list: Movie[] = [];
-    @Output() celebrityDetails: EventEmitter<number> = new EventEmitter<number>;
-    @Output() celebrityEdits: EventEmitter<number> = new EventEmitter<number>;
+    @Input() items_list: Item [] = [];
+    @Input() data_type: string = "";
 
 
     constructor(private readonly _router: Router,
-        private route:ActivatedRoute) {
+        private route: ActivatedRoute) {
 
     }
 
-    // celebrityEdit(id: string) {
-    //   this.celebrityEdits.emit(id);
-    //   }
+    clickItem(id: string) {
+        this._router.navigate(['detail', id], { relativeTo: this.route });
+    }
 
-    //   celebrityDetail(id: string) {
-    //     this.celebrityDetails.emit(id);
-    //   }
+    clickItemEdit(id: string) {
+        this._router.navigate(['edit', id], { relativeTo: this.route });
+    }
+
 
 }

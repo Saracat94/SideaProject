@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { Movie } from '../../../shared/interfaces/movie.interfaces';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { MovieService } from 'src/app/tabs/services/movie.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 
 @Component({
     selector: 'app-medit',
-    templateUrl: 'edit.component.html',
-    styleUrls: ['edit.component.scss'],
+    templateUrl: 'm.edit.component.html',
+    styleUrls: ['m.edit.component.scss'],
 })
 export class MovieEditComponent {
 

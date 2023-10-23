@@ -5,10 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MoviePage } from './movie.page';
 
 import { MoviePageRoutingModule } from './movie-routing.module';
-import { ListComponent } from '../shared/components/list/list.component';
 import { MovieDetailComponent } from './components/detail/m.detail.component';
 
-import { MovieEditComponent } from './components/edit/edit.component';
+import { MovieEditComponent } from './components/edit/m.edit.component';
 import { ListModule } from '../shared/components/list/list.module';
 
 @NgModule({

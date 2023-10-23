@@ -10,6 +10,7 @@ import { MovieService } from '../tabs/services/movie.service';
 export class MoviePage {
 
   movie_list: Movie[] = [];
+  data_type: string = "movie";
 
   constructor(private movieService: MovieService,) {
       this.movie_list = this.movieService.getList();

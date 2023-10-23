@@ -9,7 +9,8 @@ import { CelebrityService } from '../tabs/services/celebrity.service';
 })
 export class CelebrityPage {
 
-  celebrities_list: Celebrity[] = []
+  celebrities_list: Celebrity[] = [];
+  data_type: string = "celebrity";
 
   constructor(private celebrityService: CelebrityService) {
     this.celebrities_list = this.celebrityService.getList();

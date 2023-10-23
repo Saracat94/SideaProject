@@ -70,13 +70,13 @@ export class MovieService {
         }
     ];
 
+    getList(): Movie[] {
+        return this.movies_list;
+    }
+
     getById(id: string): Movie | undefined {
         const movie = this.movies_list.find((movie: Movie) => movie.id === id);
         return movie;
-    }
-
-    getList(): Movie[] {
-        return this.movies_list;
     }
 
     update(updatedMovie: Movie): void {
