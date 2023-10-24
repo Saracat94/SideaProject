@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
 export class MovieCreateComponent {
     formUser: FormGroup | undefined;
     movie: Movie[] =[];
+    titlePage: string = "Movie creating"
 
     constructor(private _movieService: MovieService,
         private _location: Location) {

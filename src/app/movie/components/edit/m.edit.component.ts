@@ -15,6 +15,7 @@ export class MovieEditComponent {
     selectedMovieId: string | undefined;
     movie: Movie | undefined;
     formUser: FormGroup | undefined;
+    titlePage: string = "Movie Editing"
 
     constructor(private _route: ActivatedRoute,
         private _movieService: MovieService,

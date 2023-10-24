@@ -1,14 +1,9 @@
 <ion-header [translucent]="true">
-    <ion-toolbar>
-      <ion-button fill="clear" class="back" slot="start"
-        router-direction="forward">
-        <ion-back-button>
-        <ion-icon name="arrow-back-outline"></ion-icon></ion-back-button>
-      </ion-button>
-      <ion-button fill="clear" class="share" slot="end">
-        <ion-icon name="share-social-outline"></ion-icon>
-      </ion-button>
-    </ion-toolbar>
+  <app-header
+  [title] = "titlePage"
+  [showAdd] = "false"
+  [showBack] = "true"
+  ></app-header>
     <ion-card *ngIf="celebrity">
       <ion-card-header>
         <ion-card-title>{{celebrity.name}}</ion-card-title>

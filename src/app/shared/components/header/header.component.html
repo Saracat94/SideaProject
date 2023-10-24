@@ -1,0 +1,11 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-buttons *ngIf="showBack" slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{title}}</ion-title>
+        <ion-fab-button *ngIf="showAdd" size="small" slot="end" (click)="clickItemCreate()">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-toolbar>
+</ion-header>

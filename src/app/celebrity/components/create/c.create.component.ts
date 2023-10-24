@@ -12,6 +12,7 @@ import { CelebrityService } from "src/app/tabs/services/celebrity.service";
 export class CelebrityCreateComponent {
     formUser: FormGroup | undefined;
     celebrity: Celebrity[] =[];
+    titlePage: string = "Celebrity creating";
 
     constructor(private _celebrityService: CelebrityService,
         private _location: Location) {

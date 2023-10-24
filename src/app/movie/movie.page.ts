@@ -14,7 +14,7 @@ export class MoviePage {
 
   movie_list: Item[] = [];
 
-  data_type: string = "movie";
+  titlePage: string = "Movie";
 
   constructor(private _movieService: MovieService,
     private readonly _router: Router,

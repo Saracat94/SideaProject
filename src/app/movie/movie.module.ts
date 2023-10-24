@@ -10,6 +10,7 @@ import { MovieDetailComponent } from './components/detail/m.detail.component';
 import { MovieEditComponent } from './components/edit/m.edit.component';
 import { ListModule } from '../shared/components/list/list.module';
 import { MovieCreateComponent } from './components/create/m.create.component';
+import { HeaderModule } from '../shared/components/header/header.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { MovieCreateComponent } from './components/create/m.create.component';
     MoviePageRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    ListModule
+    ListModule,
+    HeaderModule
   ],
   declarations: [MoviePage, MovieDetailComponent, MovieEditComponent, MovieCreateComponent]
 })

@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class ProfilePage {
 
+  titlePage: string = "Profile"
+
   constructor() {}
 
 }

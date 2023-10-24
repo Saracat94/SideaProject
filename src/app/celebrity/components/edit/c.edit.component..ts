@@ -16,6 +16,7 @@ export class CelebrityEditComponent{
     selectedCelebrityId: string | undefined;
     celebrity: Celebrity | undefined;
     formUser: FormGroup | undefined;
+    titlePage: string = "Celebrity editing"
 
     constructor(private _route: ActivatedRoute,
         private _celebrityService: CelebrityService,

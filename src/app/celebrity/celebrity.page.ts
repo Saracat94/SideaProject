@@ -13,7 +13,7 @@ export class CelebrityPage {
 
   celebrities_list: Item[] = [];
 
-  data_type: string = "celebrity";
+  titlePage: string = "Celebrities";
 
   constructor(private _celebrityService: CelebrityService,
     private readonly _router: Router,

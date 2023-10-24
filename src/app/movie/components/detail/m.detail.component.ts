@@ -14,6 +14,7 @@ export class MovieDetailComponent {
 
     selectedMovieId: string | undefined;
     movie: Movie | undefined;
+    titlePage: string = "Movie Detail"
 
     constructor(private _route: ActivatedRoute,
         private _movieService: MovieService) {

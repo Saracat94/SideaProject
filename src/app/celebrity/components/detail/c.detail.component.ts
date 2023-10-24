@@ -12,6 +12,7 @@ export class CelebrityDetailComponent{
 
     selectedCelebrityId: string | undefined;
     celebrity: Celebrity | undefined;
+    titlePage: string = "Celebrity Detail"
 
     constructor(private _route: ActivatedRoute,
         private _celebrityService: CelebrityService){
