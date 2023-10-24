@@ -1,4 +1,3 @@
-import { Observer, Subject, from } from 'rxjs';
 import { Component } from '@angular/core';
 import { Movie } from '../shared/interfaces/movie.interfaces';
 import { MovieService } from '../tabs/services/movie.service';
@@ -19,17 +18,14 @@ export class MoviePage {
   constructor(private _movieService: MovieService,
     private readonly _router: Router,
     private route: ActivatedRoute) {
-    // this.movie_list = this.movieService.getList();
-    this._movieService.MovieListObs.subscribe((movie_list: Movie[]) => {
-      this.movie_list = movie_list.map((movie: Movie) => {
+     this._movieService.getList().subscribe((movies: Movie[]) =>{
+      this.movie_list = movies.map((movie: Movie) => {
         return {
           id: movie.id,
           name: movie.title
         };
       });
     });
-
-    this._movieService.getList();
   };
 
   clickItemCreate() {

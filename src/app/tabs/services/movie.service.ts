@@ -1,12 +1,19 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { Observable, Subject, map } from "rxjs";
 import { Movie } from "src/app/shared/interfaces/movie.interfaces";
-
+import { HttpClient } from "@angular/common/http";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class MovieService {
+
+    constructor(private readonly _http: HttpClient){
+        this._baseUrl = environment.baseUrl;
+    }
+
+    private _baseUrl = '';
 
     private movies_list: Movie[] = [
         {
@@ -74,21 +81,27 @@ export class MovieService {
     
     
     private movieList = new Subject<Movie[]>();
+    
     MovieListObs = this.movieList.asObservable();
     
-    getList(): void {
-        this.movieList.next(this.movies_list)
+    getList(): Observable<Movie[]> {
+        return this._http.get<Movie[]>(`${this._baseUrl}/movies?order_by=id&page=0&size=25`).pipe(map((result: any) => {
+            return result.movies;
+        }));
+
     }
 
-    // getList(): Movie[] {
-        //     return this.movies_list;
-        // }
-        
-        getById(id: string): Movie | undefined {
-            const movie = this.movies_list.find((movie: Movie) => movie.id === id);
-            return movie;
+    getById(id: string): Observable<Movie>{
+        return this._http.get<Movie>(`${this._baseUrl}/movies/${id}`)
     }
+        
+    // getById(id: string): Movie | undefined {
+    //         const movie = this.movies_list.find((movie: Movie) => movie.id === id);
+    //         return movie;
+    // }
     
+    
+
     update(updatedMovie: Movie): void {
         const index = this.movies_list.findIndex((movie: Movie) => movie.id === updatedMovie.id);
         if (index !== -1) {

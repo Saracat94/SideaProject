@@ -23,8 +23,10 @@ export class MovieEditComponent {
         this._route.params.subscribe(params => {
             this.selectedMovieId = params['id'];
             if (this.selectedMovieId) {
-                this.movie = this._movieService.getById(this.selectedMovieId);
-                this._setForm();
+                this._movieService.getById(this.selectedMovieId).subscribe((results: Movie) => {
+                    this.movie = results;
+                    this._setForm();
+                });
             }
         });
     }

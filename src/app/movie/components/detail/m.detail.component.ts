@@ -21,7 +21,9 @@ export class MovieDetailComponent {
         this._route.params.subscribe(params => {
             this.selectedMovieId = params['id'];
             if (this.selectedMovieId) {
-                this.movie = this._movieService.getById(this.selectedMovieId)
+                this._movieService.getById(this.selectedMovieId).subscribe((result: Movie) => {
+                    this.movie = result;
+                })
             }
         });
 
