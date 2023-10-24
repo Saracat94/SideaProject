@@ -1,18 +1,8 @@
 export interface Item {
     //questa è l'interfaccia di Movie
     id: string;
-    title?: string;
-    year?: number;
-    runningTime?: number;
-    genres?: string;
-    cast?: MovieCelebrity[];
-    rating?: Rating;
-    country?: Country[];
-    //questa è l'interfaccia di Celebrity
-    name?: string;
-    birthYear?: number;
-    deathYear?: number;
-    movies?: MovieCelebrity[];
+    name: string;
+
 }
 
 export interface MovieCelebrity {

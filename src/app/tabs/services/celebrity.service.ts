@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 import { Celebrity } from "src/app/shared/interfaces/celebrity.interfaces";
 
 @Injectable({
@@ -69,9 +70,16 @@ export class CelebrityService {
         },
     ];
 
-    getList(): Celebrity[] {
-        return this.celebrities_list;
+    private celebrityList = new Subject<Celebrity[]>();
+    CelebrityListObs = this.celebrityList.asObservable();
+
+    getList(): void {
+        this.celebrityList.next(this.celebrities_list)
     }
+
+    // getList(): Celebrity[] {
+    //     return this.celebrities_list;
+    // }
 
     getById(id: string): Celebrity | undefined {
         const celebrity = this.celebrities_list.find((celebrity: Celebrity) => celebrity.id === id);
@@ -83,5 +91,30 @@ export class CelebrityService {
         if (index !== -1) {
             this.celebrities_list[index] = updatedMovie;
         }
+
+        this.celebrityList.next(this.celebrities_list)
     }
+
+    private _numId = this.celebrities_list.length;
+    
+    create(createdCelebrity: Celebrity) {
+        const newId = `nm${(this._numId + 1).toString().padStart(7, '0')}`;
+        this._numId += 1;
+        this.celebrities_list.push({
+            id: newId,
+            name: createdCelebrity.name,
+            birthYear: createdCelebrity.birthYear,
+            deathYear: createdCelebrity.deathYear
+        })
+        this.celebrityList.next(this.celebrities_list);
+    }
+
+    delete(id: string): void {
+        const index = this.celebrities_list.findIndex((c: Celebrity) => c.id === id);
+        if (index !== -1) {
+            this.celebrities_list.splice(index, 1);
+            this.celebrityList.next(this.celebrities_list);
+        }
+    }
+
 }

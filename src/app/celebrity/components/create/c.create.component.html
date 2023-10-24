@@ -3,7 +3,7 @@
         <ion-button fill="clear" class="back" slot="start" router-direction="forward"><ion-back-button>
                 <ion-icon name="arrow-back-outline"></ion-icon></ion-back-button>
         </ion-button>
-        <ion-title size="large">EDIT CELEBRITY</ion-title>
+        <ion-title size="large">CREATE CELEBRITY</ion-title>
     </ion-toolbar>
     <form *ngIf="formUser" [formGroup]="formUser" (ngSubmit)="submitForm()">
         <ion-list>
@@ -11,10 +11,10 @@
                 <ion-input label="Nome:" formControlName="name" type="text"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input label="Anno di uscita:" formControlName="birthYear" type="number"></ion-input>
+                <ion-input label="Anno di nascita:" formControlName="birthYear" type="number"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input label="Data di Morte:" formControlName="deathYear" type="number"></ion-input>
+                <ion-input label="Anno di morte:" formControlName="deathYear" type="number"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-button type="submit" expand="block" [disabled]="!formUser.valid">Salva</ion-button>

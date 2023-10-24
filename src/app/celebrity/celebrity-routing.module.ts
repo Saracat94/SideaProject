@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { CelebrityPage } from './celebrity.page';
 import { CelebrityEditComponent } from './components/edit/c.edit.component.';
 import { CelebrityDetailComponent } from './components/detail/c.detail.component';
+import { CelebrityCreateComponent } from './components/create/c.create.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: 'edit/:id',
     component: CelebrityEditComponent,
+  },
+  {
+    path: 'create',
+    component: CelebrityCreateComponent,
   }
 ];
 

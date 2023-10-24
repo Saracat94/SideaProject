@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { Movie } from '../shared/interfaces/movie.interfaces';
 import { MovieService } from '../tabs/services/movie.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Item } from '../shared/interfaces/list.interfaces';
 
 @Component({
   selector: 'app-movie',
@@ -11,33 +12,42 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class MoviePage {
 
-  movie_list: Movie[] = [];
+  movie_list: Item[] = [];
 
   data_type: string = "movie";
 
-  constructor(private movieService: MovieService,
+  constructor(private _movieService: MovieService,
     private readonly _router: Router,
     private route: ActivatedRoute) {
     // this.movie_list = this.movieService.getList();
-    this.movieService.MovieListObs.subscribe((movie_list: Movie[]) => {
+    this._movieService.MovieListObs.subscribe((movie_list: Movie[]) => {
       this.movie_list = movie_list.map((movie: Movie) => {
         return {
           id: movie.id,
-          title: movie.title,
-          year: movie.year,
-          runningTime: movie.runningTime,
-          genres: movie.genres
+          name: movie.title
         };
       });
     });
 
-    this.movieService.getList();
+    this._movieService.getList();
   };
 
-  clickItemEdit() {
+  clickItemCreate() {
     this._router.navigate(['create'], { relativeTo: this.route });
   }
 
+  clickItem(id: string) {
+    this._router.navigate(['detail', id], { relativeTo: this.route });
+}
+
+clickItemEdit(id: string) {
+    this._router.navigate(['edit', id], { relativeTo: this.route });
+}
+
+clickItemRemove(id: string) {
+    this._movieService.delete(id);
+    this._router.navigate([''], { relativeTo: this.route });
+}
 }
 
 

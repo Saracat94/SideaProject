@@ -1,16 +1,18 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Movie
+      Movies
     </ion-title>
-    
-      <ion-fab-button size="small" slot="end" (click) = "clickItemEdit()">
+      <ion-fab-button size="small" slot="end" (click) = "clickItemCreate()">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
-
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-list [items_list]=movie_list [data_type]=data_type></app-list>
+  <app-list 
+    [items_list]="movie_list"
+    (clickItem) = "clickItem($event)"
+    (clickItemEdit) = "clickItemEdit($event)"
+    (clickItemRemove) = "clickItemRemove($event)"></app-list>
 </ion-content>
