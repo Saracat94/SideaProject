@@ -3,9 +3,14 @@
     <ion-title>
       Movie
     </ion-title>
+    
+      <ion-fab-button size="small" slot="end" (click) = "clickItemEdit()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <app-list [items_list] = movie_list [data_type] = data_type></app-list>
+  <app-list [items_list]=movie_list [data_type]=data_type></app-list>
 </ion-content>

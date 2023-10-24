@@ -9,6 +9,7 @@ import { MovieDetailComponent } from './components/detail/m.detail.component';
 
 import { MovieEditComponent } from './components/edit/m.edit.component';
 import { ListModule } from '../shared/components/list/list.module';
+import { MovieCreateComponent } from './components/create/m.create.component';
 
 @NgModule({
   imports: [
@@ -20,7 +21,7 @@ import { ListModule } from '../shared/components/list/list.module';
     ReactiveFormsModule,
     ListModule
   ],
-  declarations: [MoviePage, MovieDetailComponent, MovieEditComponent]
+  declarations: [MoviePage, MovieDetailComponent, MovieEditComponent, MovieCreateComponent]
 })
 export class MoviePageModule {
 
