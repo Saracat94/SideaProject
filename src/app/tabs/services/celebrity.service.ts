@@ -1,12 +1,20 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs";
+import { Observable, Subject, map } from "rxjs";
 import { Celebrity } from "src/app/shared/interfaces/celebrity.interfaces";
+import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CelebrityService {
-    
+
+    private _baseUrl = '';
+
+    constructor(private readonly _http: HttpClient) {
+        this._baseUrl = environment.baseUrl;
+    }
+
     private celebrities_list: Celebrity[] = [
         {
             id: "nm0000701",
@@ -71,50 +79,43 @@ export class CelebrityService {
     ];
 
     private celebrityList = new Subject<Celebrity[]>();
+
     CelebrityListObs = this.celebrityList.asObservable();
 
-    getList(): void {
-        this.celebrityList.next(this.celebrities_list)
+    getList(): Observable<Celebrity[]> {
+        return this._http.get<Celebrity[]>(`${this._baseUrl}/celebrities?order_by=id&page=0&size=25`).pipe(
+            map(
+                (result: any) => {
+                    return result.celebrities;
+                }
+            )
+        );
     }
 
-    // getList(): Celebrity[] {
-    //     return this.celebrities_list;
-    // }
-
-    getById(id: string): Celebrity | undefined {
-        const celebrity = this.celebrities_list.find((celebrity: Celebrity) => celebrity.id === id);
-        return celebrity;
+    getById(id: string): Observable<Celebrity> {
+        return this._http.get<Celebrity>(`${this._baseUrl}/celebrities/${id}`)
     }
 
-    update(updatedMovie: Celebrity): void {
-        const index = this.celebrities_list.findIndex((movie: Celebrity) => movie.id === updatedMovie.id);
-        if (index !== -1) {
-            this.celebrities_list[index] = updatedMovie;
-        }
-
-        this.celebrityList.next(this.celebrities_list)
+    update(updatedCelebrity: Celebrity): Observable<Celebrity> {
+        return this._http.put<Celebrity>(`${this._baseUrl}/celebrities/${updatedCelebrity.id}`, updatedCelebrity);
     }
 
     private _numId = this.celebrities_list.length;
-    
-    create(createdCelebrity: Celebrity) {
+
+    create(createdCelebrity: Celebrity): Observable<Celebrity> {
         const newId = `nm${(this._numId + 1).toString().padStart(7, '0')}`;
         this._numId += 1;
-        this.celebrities_list.push({
+        const newCelebrity: Celebrity = {
             id: newId,
             name: createdCelebrity.name,
             birthYear: createdCelebrity.birthYear,
             deathYear: createdCelebrity.deathYear
-        })
-        this.celebrityList.next(this.celebrities_list);
-    }
-
-    delete(id: string): void {
-        const index = this.celebrities_list.findIndex((c: Celebrity) => c.id === id);
-        if (index !== -1) {
-            this.celebrities_list.splice(index, 1);
-            this.celebrityList.next(this.celebrities_list);
         }
+
+        return this._http.post<Celebrity>(`${this._baseUrl}/celebrities`, newCelebrity);
     }
 
+    delete(id: string): Observable<Celebrity> {
+        return this._http.delete<Celebrity>(`${this._baseUrl}/celebrities/${id}`);
+    }
 }

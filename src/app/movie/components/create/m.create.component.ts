@@ -33,8 +33,9 @@ export class MovieCreateComponent {
     submitForm() {
         console.log(this.formUser)
         if (this.formUser?.valid) {
-            this._movieService.create(this.formUser?.value);
-            this._location.back();
+            this._movieService.create(this.formUser?.value).subscribe((createdMovie: Movie) => {
+                this._location.back();
+            })
         }
     }
 }

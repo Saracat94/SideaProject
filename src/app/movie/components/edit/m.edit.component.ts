@@ -41,11 +41,13 @@ export class MovieEditComponent {
         });
         // this.formUser.valueChanges.subscribe((x) => console.log(x));
     }
+
     submitForm() {
         console.log(this.formUser)
         if (this.formUser?.valid) {
-            this._movieService.update(this.formUser?.value);
-            this._location.back();
+            this._movieService.update(this.formUser?.value).subscribe((updatedMovie: Movie) =>{
+                this._location.back();
+            });
         }
     }
 }

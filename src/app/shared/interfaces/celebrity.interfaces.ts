@@ -7,6 +7,11 @@ export interface Celebrity {
   }
   
   export interface MovieCelebrity {
-    // Definisci le proprietà di MovieCelebrity
+    celebrityName: string;
+    celebrityId: string;
+    movieTitle: string;
+    movieId: string;
+    category: string;
+    characters: string;
   }
   

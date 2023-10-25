@@ -17,19 +17,21 @@ export class CelebrityPage {
 
   constructor(private _celebrityService: CelebrityService,
     private readonly _router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute) {}
 
-    this._celebrityService.CelebrityListObs.subscribe((celebrity_list: Celebrity[]) => {
-      this.celebrities_list = celebrity_list.map((celebrity: Celebrity) => {
-        return {
-          id: celebrity.id,
-          name: celebrity.name
-        };
+    private _getList(){
+      this._celebrityService.getList().subscribe((celebrities: Celebrity[]) => {
+        this.celebrities_list = celebrities.map((celebrity: Celebrity) => {
+          return {
+            id: celebrity.id,
+            name: celebrity.name
+          };
+        });
       });
-    });
+    }
 
-    this._celebrityService.getList();
-
+  ionViewWillEnter() {
+    this._getList();
   }
 
   clickItemCreate() {
@@ -37,13 +39,13 @@ export class CelebrityPage {
   }
   clickItem(id: string) {
     this._router.navigate(['detail', id], { relativeTo: this.route });
-}
+  }
 
-clickItemEdit(id: string) {
+  clickItemEdit(id: string) {
     this._router.navigate(['edit', id], { relativeTo: this.route });
-}
+  }
 
-clickItemRemove(id: string) {
+  clickItemRemove(id: string) {
     this._celebrityService.delete(id);
-}
+  }
 }

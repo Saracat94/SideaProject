@@ -24,8 +24,12 @@ export class CelebrityEditComponent{
         this._route.params.subscribe(params => {
             this.selectedCelebrityId = params['id'];
             if (this.selectedCelebrityId) {
-                this.celebrity = this._celebrityService.getById(this.selectedCelebrityId);
-                this._setForm();
+                this._celebrityService.getById(this.selectedCelebrityId).subscribe(
+                    (result: Celebrity) => {
+                        this.celebrity = result;
+                        this._setForm();
+                    }
+                );
             }
         });
     }
@@ -35,14 +39,15 @@ export class CelebrityEditComponent{
             id: new FormControl(this.celebrity?.id, Validators.required),
             name: new FormControl(this.celebrity?.name, Validators.required),
             birthYear: new FormControl(this.celebrity?.birthYear, Validators.required),
-            deathYear: new FormControl(this.celebrity?.deathYear, Validators.required)
+            deathYear: new FormControl(this.celebrity?.deathYear)
         });
     }
     submitForm() {
         console.log(this.formUser)
         if(this.formUser?.valid){
-            this._celebrityService.update(this.formUser?.value);
-            this._location.back();
+            this._celebrityService.update(this.formUser?.value).subscribe((updatedCelebrity: Celebrity) => {
+                this._location.back();
+            });
         }
     }
     

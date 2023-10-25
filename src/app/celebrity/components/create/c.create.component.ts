@@ -24,7 +24,7 @@ export class CelebrityCreateComponent {
             id: new FormControl("tt0076759", Validators.required),
             name: new FormControl("", Validators.required),
             birthYear: new FormControl(0, Validators.required),
-            deathYear: new FormControl(0, Validators.required)
+            deathYear: new FormControl(0)
         });
         
     }
@@ -32,8 +32,9 @@ export class CelebrityCreateComponent {
     submitForm() {
         console.log(this.formUser)
         if (this.formUser?.valid) {
-            this._celebrityService.create(this.formUser?.value);
-            this._location.back();
+            this._celebrityService.create(this.formUser?.value).subscribe((createdCelebrity: Celebrity) => {
+                this._location.back();
+            });
         }
     }
 }

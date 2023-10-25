@@ -17,8 +17,10 @@ export class MoviePage {
 
   constructor(private _movieService: MovieService,
     private readonly _router: Router,
-    private route: ActivatedRoute) {
-     this._movieService.getList().subscribe((movies: Movie[]) =>{
+    private route: ActivatedRoute) {};
+
+  private _getList() {
+    this._movieService.getList().subscribe((movies: Movie[]) => {
       this.movie_list = movies.map((movie: Movie) => {
         return {
           id: movie.id,
@@ -26,7 +28,11 @@ export class MoviePage {
         };
       });
     });
-  };
+  }
+
+  ionViewWillEnter() {
+    this._getList();
+  }
 
   clickItemCreate() {
     this._router.navigate(['create'], { relativeTo: this.route });
@@ -34,16 +40,17 @@ export class MoviePage {
 
   clickItem(id: string) {
     this._router.navigate(['detail', id], { relativeTo: this.route });
-}
+  }
 
-clickItemEdit(id: string) {
+  clickItemEdit(id: string) {
     this._router.navigate(['edit', id], { relativeTo: this.route });
-}
+  }
 
-clickItemRemove(id: string) {
-    this._movieService.delete(id);
-    this._router.navigate([''], { relativeTo: this.route });
-}
+  clickItemRemove(id: string) {
+    this._movieService.delete(id).subscribe((selectedMovie: Movie) => {
+      this._getList();
+    });
+  }
 }
 
 

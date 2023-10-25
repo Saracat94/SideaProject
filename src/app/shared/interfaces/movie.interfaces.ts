@@ -10,13 +10,21 @@ export interface Movie {
 }
 
 export interface MovieCelebrity {
-    // Definisci le proprietà dell'attore/celebrità qui
+    celebrityName: string;
+    celebrityId: string;
+    movieTitle: string;
+    movieId: string;
+    category: string;
+    characters: string;
 }
 
 export interface Rating {
-    // Definisci le proprietà relative al rating qui
+    averageRating?: number;
+    numVotes?: number;
 }
 
 export interface Country {
-    // Definisci le proprietà relative al paese qui
+    title: string;
+    region: string;
+    language: string;
 }

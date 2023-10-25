@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject, map } from "rxjs";
+import { Observable, Subject, map, switchMap } from "rxjs";
 import { Movie } from "src/app/shared/interfaces/movie.interfaces";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
@@ -9,11 +9,12 @@ import { environment } from "src/environments/environment";
 })
 export class MovieService {
 
-    constructor(private readonly _http: HttpClient){
+    private _baseUrl = '';
+
+    constructor(private readonly _http: HttpClient) {
         this._baseUrl = environment.baseUrl;
     }
 
-    private _baseUrl = '';
 
     private movies_list: Movie[] = [
         {
@@ -23,9 +24,7 @@ export class MovieService {
             runningTime: 178,
             genres: "Fantasy, Avventura",
             cast: [],
-            rating: {
-                // Inserire le proprietà relative al rating qui
-            },
+            rating: {},
             country: []
         },
         {
@@ -35,9 +34,7 @@ export class MovieService {
             runningTime: 175,
             genres: "Crime, Dramma",
             cast: [],
-            rating: {
-                // Inserire le proprietà relative al rating qui
-            },
+            rating: {},
             country: []
         },
         {
@@ -47,9 +44,7 @@ export class MovieService {
             runningTime: 142,
             genres: "Dramma, Romantico",
             cast: [],
-            rating: {
-                // Inserire le proprietà relative al rating qui
-            },
+            rating: {},
             country: []
         },
         {
@@ -59,9 +54,7 @@ export class MovieService {
             runningTime: 154,
             genres: "Crime, Dramma",
             cast: [],
-            rating: {
-                // Inserire le proprietà relative al rating qui
-            },
+            rating: {},
             country: []
         },
         {
@@ -71,66 +64,59 @@ export class MovieService {
             runningTime: 121,
             genres: "Fantasy, Sci-Fi",
             cast: [],
-            rating: {
-                // Inserire le proprietà relative al rating qui
-            },
+            rating: {},
             country: []
         }
     ];
 
-    
-    
-    private movieList = new Subject<Movie[]>();
-    
-    MovieListObs = this.movieList.asObservable();
-    
-    getList(): Observable<Movie[]> {
-        return this._http.get<Movie[]>(`${this._baseUrl}/movies?order_by=id&page=0&size=25`).pipe(map((result: any) => {
-            return result.movies;
-        }));
 
+
+    private movieList = new Subject<Movie[]>();
+
+    MovieListObs = this.movieList.asObservable();
+
+    getList(): Observable<Movie[]> {
+        return this._http.get<Movie[]>(`${this._baseUrl}/movies?order_by=id&page=0&size=25`).pipe(
+            map(
+                (result: any) => {
+                    return result.movies;
+                }
+            )
+        );
     }
 
-    getById(id: string): Observable<Movie>{
+    getById(id: string): Observable<Movie> {
         return this._http.get<Movie>(`${this._baseUrl}/movies/${id}`)
     }
-        
-    // getById(id: string): Movie | undefined {
-    //         const movie = this.movies_list.find((movie: Movie) => movie.id === id);
-    //         return movie;
-    // }
-    
-    
 
-    update(updatedMovie: Movie): void {
-        const index = this.movies_list.findIndex((movie: Movie) => movie.id === updatedMovie.id);
-        if (index !== -1) {
-            this.movies_list[index] = updatedMovie;
-        }
-
-        this.movieList.next(this.movies_list)
+    update(updatedMovie: Movie): Observable<Movie> {
+        return this._http.put<Movie>(
+            `${this._baseUrl}/movies/${updatedMovie.id}`, updatedMovie);
     }
-    
+
     private _numId = this.movies_list.length;
-    
-    create(createdMovie: Movie) {
+
+    create(createdMovie: Movie): Observable<Movie> {
         const newId = `tt${(this._numId + 1).toString().padStart(7, '0')}`;
         this._numId += 1;
-        this.movies_list.push({
+        const newMovie: Movie = {
             id: newId,
             title: createdMovie.title,
             year: createdMovie.year,
             runningTime: createdMovie.runningTime,
-            genres: createdMovie.genres
-        })
-        this.movieList.next(this.movies_list);
+            genres: createdMovie.genres,
+            // cast: [],
+            rating: {
+                averageRating: 0,
+                numVotes: 0
+            },
+            // country: []
+        };
+
+        return this._http.post<Movie>(`${this._baseUrl}/movies`, newMovie);
     }
 
-    delete(id: string): void {
-        const index = this.movies_list.findIndex((m: Movie) => m.id === id);
-        if (index !== -1) {
-            this.movies_list.splice(index, 1);
-            this.movieList.next(this.movies_list);
-        }
+    delete(id: string): Observable<Movie> {
+        return this._http.delete<Movie>(`${this._baseUrl}/movies/${id}`);
     }
 }
