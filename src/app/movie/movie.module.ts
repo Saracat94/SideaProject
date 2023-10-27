@@ -3,14 +3,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MoviePage } from './movie.page';
-
 import { MoviePageRoutingModule } from './movie-routing.module';
 import { MovieDetailComponent } from './components/detail/m.detail.component';
-
 import { MovieEditComponent } from './components/edit/m.edit.component';
 import { ListModule } from '../shared/components/list/list.module';
 import { MovieCreateComponent } from './components/create/m.create.component';
 import { HeaderModule } from '../shared/components/header/header.module';
+import { LinksModule } from '../shared/components/links/links.module';
 
 @NgModule({
   imports: [
@@ -21,7 +20,8 @@ import { HeaderModule } from '../shared/components/header/header.module';
     FormsModule,
     ReactiveFormsModule,
     ListModule,
-    HeaderModule
+    HeaderModule,
+    LinksModule
   ],
   declarations: [MoviePage, MovieDetailComponent, MovieEditComponent, MovieCreateComponent]
 })

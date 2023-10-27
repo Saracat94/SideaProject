@@ -8,6 +8,7 @@
       <ion-card-header>
         <ion-card-title>{{celebrity.name}}</ion-card-title>
         <ion-card-subtitle>data di nascita: {{celebrity.birthYear}}</ion-card-subtitle>
+        <app-links *ngIf = "celebrity && celebrity.movies" [list]="celebrity.movies" [isMovie] = "false"></app-links>
       </ion-card-header>
   
       <ion-card-content>

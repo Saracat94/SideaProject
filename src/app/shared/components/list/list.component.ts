@@ -1,8 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../../interfaces/list.interfaces';
-import { MovieService } from 'src/app/tabs/services/movie.service';
-import { CelebrityService } from 'src/app/tabs/services/celebrity.service';
+
 
 
 
