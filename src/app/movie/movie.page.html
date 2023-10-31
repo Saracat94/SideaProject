@@ -1,14 +1,27 @@
 <ion-header [translucent]="true">
   <app-header
-    [title] = "titlePage"
-    [showAdd] = "true"
-    [showBack] = "false"
-    (addEvent) = "clickItemCreate()"></app-header>
+    [title]="titlePage"
+    [showAdd]="true"
+    [showBack]="false"
+    (addEvent)="clickItemCreate()"
+  ></app-header>
 
-<ion-content [fullscreen]="true">
-  <app-list 
-    [items_list]="movie_list"
-    (clickItem) = "clickItem($event)"
-    (clickItemEdit) = "clickItemEdit($event)"
-    (clickItemRemove) = "clickItemRemove($event)"></app-list>
-</ion-content>
+  <ion-content [fullscreen]="true">
+    <ion-item>
+      <ion-range
+        labelPlacement="start"
+        label="Visualizza i film con rating maggiore di:"
+        (ionChange)="ratingRange($event)"
+        [pin]="true"
+        [min]="0"
+        [max]="10"
+        color="success"
+      ></ion-range>
+    </ion-item>
+    <app-list
+      [items_list]="movie_list"
+      (clickItem)="clickItem($event)"
+      (clickItemEdit)="clickItemEdit($event)"
+      (clickItemRemove)="clickItemRemove($event)"
+    ></app-list> </ion-content
+></ion-header>
