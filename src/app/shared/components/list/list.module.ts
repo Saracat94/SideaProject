@@ -1,7 +1,8 @@
-import { IonicModule } from '@ionic/angular';
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IonicModule } from '@ionic/angular';
+import { PipesModule } from '../../pipe/pipes.module';
 import { ListComponent } from './list.component';
 
 @NgModule({
@@ -10,11 +11,10 @@ import { ListComponent } from './list.component';
     CommonModule,
     FormsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    PipesModule,
   ],
   declarations: [ListComponent],
-  exports: [ListComponent]
+  exports: [ListComponent],
 })
-export class ListModule {
-
-}
+export class ListModule {}

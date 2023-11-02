@@ -3,7 +3,7 @@ import { Movie } from '../shared/interfaces/movie.interfaces';
 import { MovieService } from '../tabs/services/movie.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Item } from '../shared/interfaces/list.interfaces';
-import { map } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, switchMap } from 'rxjs';
 import { RangeCustomEvent } from '@ionic/angular';
 import { RangeValue } from '@ionic/core';
 
@@ -14,8 +14,15 @@ import { RangeValue } from '@ionic/core';
 })
 export class MoviePage {
   movie_list: Item[] = [];
+  fullMovieList: Item[] = [];
+  rating$ = new BehaviorSubject<number>(0);
+  search$ = new BehaviorSubject<string>('');
+
+
+  orderTo: string = '';
 
   titlePage: string = 'Movie';
+
 
   constructor(
     private _movieService: MovieService,
@@ -23,30 +30,38 @@ export class MoviePage {
     private route: ActivatedRoute
   ) {}
 
-  private _getList(rating = 0) {
-    this._movieService.getList().subscribe((movies: Movie[]) => {
-      this.movie_list = movies
-        .filter(
-          (movie) =>
-            movie.rating?.averageRating != undefined &&
-            movie.rating.averageRating > rating
-        )
-        .map((movie: Movie) => {
-          return {
-            id: movie.id,
-            name: movie.title,
-            rating: movie.rating?.averageRating,
-          };
-        });
-    });
+  ionViewWillEnter() {
+   this.search$.pipe(
+    switchMap((title) => {
+      return this._movieService.getList(title)
+    }),
+    switchMap((movies) => {
+      this.fullMovieList = movies.map((movie: Movie) => {
+        return{
+          id: movie.id,
+          name: movie.title,
+          rating: (movie.rating?.averageRating || 0) / 10,
+        }
+      });
+      return this.rating$;
+    })
+   ).subscribe((value) => {
+    this._getListWithRating(value);
+   });
   }
 
-  ionViewWillEnter() {
-    this._getList();
+  searchInput(inputValue: string) {
+    this.search$.next(inputValue);
   }
-  ratingRange(ev: Event) {
-    const rating = (ev as RangeCustomEvent).detail.value;
-    this._getList(rating as number);
+
+  ratingRange(rating: Event) {
+    this.rating$.next(Number((rating as RangeCustomEvent).detail.value));
+  }
+
+  private _getListWithRating(rating: number) {
+    this.movie_list = this.fullMovieList.filter(
+      (movie) => (movie.rating || 0) > rating / 10
+    );
   }
 
   clickItemCreate() {
@@ -63,7 +78,13 @@ export class MoviePage {
 
   clickItemRemove(id: string) {
     this._movieService.delete(id).subscribe((selectedMovie: Movie) => {
-      this._getList();
+      // this._getList();
     });
   }
+
+  handleChange(event: any) {
+    console.log(event);
+    this.orderTo = event.detail.value;
+  }
+
 }

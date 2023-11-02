@@ -75,8 +75,8 @@ export class MovieService {
 
     MovieListObs = this.movieList.asObservable();
 
-    getList(): Observable<Movie[]> {
-        return this._http.get<Movie[]>(`${this._baseUrl}/movies?order_by=id&page=0&size=25`).pipe(
+    getList(title?: string): Observable<Movie[]> {
+        return this._http.get<Movie[]>(`${this._baseUrl}/movies?order_by=id&page=0&size=25&title=${title}`).pipe(
             map(
                 (result: any) => {
                     return result.movies;

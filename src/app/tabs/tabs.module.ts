@@ -7,6 +7,7 @@ import { TabsPageRoutingModule } from './tabs-routing.module';
 
 import { TabsPage } from './tabs.page';
 import { HttpClientModule } from '@angular/common/http';
+import { ToIntPipe } from '../shared/pipe/to-int.pipe';
 
 @NgModule({
   imports: [

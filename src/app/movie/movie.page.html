@@ -5,7 +5,6 @@
     [showBack]="false"
     (addEvent)="clickItemCreate()"
   ></app-header>
-
   <ion-content [fullscreen]="true">
     <ion-item>
       <ion-range
@@ -17,11 +16,21 @@
         [max]="10"
         color="success"
       ></ion-range>
+      <ion-select
+        slot="end"
+        placeholder="Visualizza Film"
+        [(ngModel)]="orderTo"
+        (selectionChange)="handleChange($event)"
+      >
+        <ion-select-option value="desc">dal più apprezzato</ion-select-option>
+        <ion-select-option value="asc">dal meno apprezzato</ion-select-option>
+      </ion-select>
     </ion-item>
     <app-list
-      [items_list]="movie_list"
+      [items_list]="movie_list  | sortByRating: orderTo"
       (clickItem)="clickItem($event)"
       (clickItemEdit)="clickItemEdit($event)"
       (clickItemRemove)="clickItemRemove($event)"
+      (searchInput)="searchInput($event)"
     ></app-list> </ion-content
 ></ion-header>

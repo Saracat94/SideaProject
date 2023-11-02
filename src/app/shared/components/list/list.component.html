@@ -1,3 +1,10 @@
+<form [formGroup]="formSearch">
+  <ion-searchbar
+    formControlName="research"
+    type="string"
+    [debounce]="500"
+  ></ion-searchbar>
+</form>
 <ion-list>
   <ion-item-sliding *ngFor="let item of items_list">
     <ion-item-options side="start">
@@ -7,11 +14,13 @@
     </ion-item-options>
 
     <ion-item>
-      <ion-label (click)="clickItem.emit(item.id)">{{ item.name }} (rating: {{ item.rating }})</ion-label>
+      <ion-label (click)="clickItem.emit(item.id)"
+        >{{ item.name }} (rating: {{ item.rating | toInt : 2 }})</ion-label
+      >
     </ion-item>
     <ion-progress-bar
       *ngIf="item.rating"
-      [value]="item.rating / 10"
+      [value]="item.rating"
       color="success"
     ></ion-progress-bar>
     <ion-item-options side="end" (click)="clickItemRemove.emit(item.id)">
