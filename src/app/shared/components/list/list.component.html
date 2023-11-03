@@ -15,11 +15,21 @@
     </ion-item-options>
 
     <ion-item>
-      <ion-label (click)="clickItem.emit(item.id)"
-        >{{ item.name }} (rating: {{ item.rating | toInt : 2 }})</ion-label
-      >
+      <ion-label slot="start" (click)="clickItem.emit(item.id)"
+        ><h2>{{ item.name }}</h2>
+        <span>Cast:</span>
+        <span *ngFor="let actor of item.cast">{{ actor.celebrityName }}, </span>
+      </ion-label>
+      <ion-label slot="end">
+        <span>{{ item.year }}</span>
+        <p>(rating: {{ item.rating | toInt : 2 }})</p>
+        </ion-label>
     </ion-item>
-    <app-ratingbar *ngIf="item.rating" [value] = "item.rating" color = "success"></app-ratingbar>
+    <app-ratingbar
+      *ngIf="item.rating"
+      [value]="item.rating"
+      color="success"
+    ></app-ratingbar>
     <ion-item-options side="end" (click)="clickItemRemove.emit(item.id)">
       <ion-item-option color="danger">Delete</ion-item-option>
     </ion-item-options>

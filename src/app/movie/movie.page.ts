@@ -44,6 +44,8 @@ export class MoviePage {
               id: movie.id,
               name: movie.title,
               rating: (movie.rating?.averageRating || 0) / 10,
+              cast: movie.cast,
+              year: movie.year
             };
           });
           // fatto il map() ritorno il rating che avrà inizialmente valore 0
