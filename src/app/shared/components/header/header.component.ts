@@ -1,26 +1,44 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Item } from '../../interfaces/list.interfaces';
-import { MovieService } from 'src/app/tabs/services/movie.service';
-import { CelebrityService } from 'src/app/tabs/services/celebrity.service';
-
-
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-    selector: 'app-header',
-    templateUrl: 'header.component.html',
-    styleUrls: ['header.component.scss'],
+  selector: 'app-header',
+  templateUrl: 'header.component.html',
+  styleUrls: ['header.component.scss'],
 })
 export class HeaderComponent {
+  @Input() title = '';
+  @Input() showAdd = false;
+  @Input() showBack = true;
+  @Input() showRange = false
+  @Input() showOrderTo = false;
 
-    @Input() title = '';
-    @Input() showAdd = false;
-    @Input() showBack = true;
+  @Output() addEvent = new EventEmitter<void>();
+  @Output() searchInput = new EventEmitter<string>();
+  @Output() orderChange = new EventEmitter<string>();
 
-    @Output() addEvent = new EventEmitter<void>();
+  formSearch;
 
-    clickItemCreate(){
-        this.addEvent.emit()
-    }
+  constructor() {
+    this.formSearch = new FormGroup({
+      research: new FormControl('', { nonNullable: true }),
+    });
 
+    this.formSearch
+      .get('research')
+      ?.valueChanges.subscribe((inputValue: string) => {
+        console.log(inputValue);
+
+        this.searchInput.emit(inputValue);
+      });
+  }
+
+  clickItemCreate() {
+    this.addEvent.emit();
+  }
+
+  selectOrder(event: any) {
+    const value = event.detail.value;
+    this.orderChange.emit(value);
+  }
 }

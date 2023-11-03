@@ -1,11 +1,3 @@
-<!-- inserisco la serchbar in un form per poter istanziare il FormGroup-->
-<form [formGroup]="formSearch">
-  <ion-searchbar
-    formControlName="research"
-    type="string"
-    [debounce]="500"
-  ></ion-searchbar>
-</form>
 <ion-list>
   <ion-item-sliding *ngFor="let item of items_list">
     <ion-item-options side="start">
@@ -17,7 +9,7 @@
     <ion-item>
       <ion-label slot="start" (click)="clickItem.emit(item.id)"
         ><h2>{{ item.name }}</h2>
-        <span>Cast:</span>
+        <span>Cast: </span>
         <span *ngFor="let actor of item.cast">{{ actor.celebrityName }}, </span>
       </ion-label>
       <ion-label slot="end">

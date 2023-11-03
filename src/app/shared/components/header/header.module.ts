@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header.component';
+import { RangeModule } from '../range/range.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { HeaderComponent } from './header.component';
     CommonModule,
     FormsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RangeModule
   ],
   declarations: [HeaderComponent],
   exports: [HeaderComponent]

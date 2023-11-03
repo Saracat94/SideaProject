@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RangeCustomEvent } from '@ionic/angular';
 import { BehaviorSubject, switchMap } from 'rxjs';
@@ -17,7 +17,7 @@ export class MoviePage {
   fullMovieList: Item[] = [];
   rating$ = new BehaviorSubject<number>(0);
   search$ = new BehaviorSubject<string>('');
-  @ViewChild(RangeComponent) rating! : RangeComponent
+  @ViewChild(RangeComponent) rating!: RangeComponent;
 
   orderTo: string = '';
 
@@ -45,7 +45,7 @@ export class MoviePage {
               name: movie.title,
               rating: (movie.rating?.averageRating || 0) / 10,
               cast: movie.cast,
-              year: movie.year
+              year: movie.year,
             };
           });
           // fatto il map() ritorno il rating che avrà inizialmente valore 0
@@ -90,8 +90,7 @@ export class MoviePage {
     });
   }
 
-  handleChange(event: any) {
-    console.log(event);
-    this.orderTo = event.detail.value;
+  orderByRating(value: string) {
+    this.orderTo = value;
   }
 }
