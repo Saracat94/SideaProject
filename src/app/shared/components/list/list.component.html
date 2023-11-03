@@ -28,7 +28,6 @@
     <app-ratingbar
       *ngIf="item.rating"
       [value]="item.rating"
-      color="success"
     ></app-ratingbar>
     <ion-item-options side="end" (click)="clickItemRemove.emit(item.id)">
       <ion-item-option color="danger">Delete</ion-item-option>
