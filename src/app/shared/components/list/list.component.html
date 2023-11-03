@@ -1,3 +1,4 @@
+<!-- inserisco la serchbar in un form per poter istanziare il FormGroup-->
 <form [formGroup]="formSearch">
   <ion-searchbar
     formControlName="research"
@@ -18,11 +19,7 @@
         >{{ item.name }} (rating: {{ item.rating | toInt : 2 }})</ion-label
       >
     </ion-item>
-    <ion-progress-bar
-      *ngIf="item.rating"
-      [value]="item.rating"
-      color="success"
-    ></ion-progress-bar>
+    <app-ratingbar *ngIf="item.rating" [value] = "item.rating" color = "success"></app-ratingbar>
     <ion-item-options side="end" (click)="clickItemRemove.emit(item.id)">
       <ion-item-option color="danger">Delete</ion-item-option>
     </ion-item-options>

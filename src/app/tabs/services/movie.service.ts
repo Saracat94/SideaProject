@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject, map, switchMap } from "rxjs";
-import { Movie } from "src/app/shared/interfaces/movie.interfaces";
+import { Movie, ResponseDto } from "src/app/shared/interfaces/movie.interfaces";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
 
@@ -75,8 +75,8 @@ export class MovieService {
 
     MovieListObs = this.movieList.asObservable();
 
-    getList(title?: string): Observable<Movie[]> {
-        return this._http.get<Movie[]>(`${this._baseUrl}/movies?order_by=id&page=0&size=25&title=${title}`).pipe(
+    getList(title: string): Observable<Movie[]> {
+        return this._http.get<ResponseDto<Movie[]>>(`${this._baseUrl}/movies?order_by=id&page=0&size=25&title=${title}`).pipe(
             map(
                 (result: any) => {
                     return result.movies;

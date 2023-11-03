@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Item } from '../../interfaces/list.interfaces';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { debounce, debounceTime } from 'rxjs';
+import { Item } from '../../interfaces/list.interfaces';
+import { RatingBarComponent } from '../rating_bar/ratingbar.component';
 
 @Component({
   selector: 'app-list',
@@ -16,16 +16,22 @@ export class ListComponent {
   @Output() clickItemEdit = new EventEmitter<string>();
   @Output() searchInput = new EventEmitter<string>();
 
-  formSearch: FormGroup;
+  // dichiaro il FormGroup del componente la tipizzazione avverrà all'interno del costruttore assieme all'inizializzazione
+  formSearch;
 
-  constructor(){
+  constructor() {
+    // inizializzo il formGroup con all'interno la searchbar con attributo formControlName = "research"
     this.formSearch = new FormGroup({
-      research: new FormControl()
+      research: new FormControl('', {nonNullable: true}),
     });
-    this.formSearch.get('research')?.valueChanges.subscribe((inputValue: string) => {
-      console.log(inputValue);
-      this.searchInput.emit(inputValue); 
-    })
+    // prendo il value della searchbar e con il valueChanges restituisco un Observable con quel valore
+    this.formSearch
+      .get('research')
+      ?.valueChanges.subscribe((inputValue: string) => {
+        console.log(inputValue);
+        // con la sottoscrizione prendo il valore di input e lo emetto con l'EventEmitter
+        this.searchInput.emit(inputValue);
+      });
   }
 
 }

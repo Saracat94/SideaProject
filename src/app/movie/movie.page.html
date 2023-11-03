@@ -6,16 +6,8 @@
     (addEvent)="clickItemCreate()"
   ></app-header>
   <ion-content [fullscreen]="true">
-    <ion-item>
-      <ion-range
-        labelPlacement="start"
-        label="Visualizza i film con rating maggiore di:"
-        (ionChange)="ratingRange($event)"
-        [pin]="true"
-        [min]="0"
-        [max]="10"
-        color="success"
-      ></ion-range>
+    <ion-item class ="range">
+      <app-range (ionChange)="ratingRange($event)"></app-range>
       <ion-select
         slot="end"
         placeholder="Visualizza Film"
