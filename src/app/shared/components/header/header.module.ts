@@ -13,7 +13,7 @@ import { RangeModule } from '../range/range.module';
     FormsModule,
     FormsModule,
     ReactiveFormsModule,
-    RangeModule
+    RangeModule,
   ],
   declarations: [HeaderComponent],
   exports: [HeaderComponent]

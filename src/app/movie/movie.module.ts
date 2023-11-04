@@ -13,6 +13,7 @@ import { MovieDetailComponent } from './components/detail/m.detail.component';
 import { MovieEditComponent } from './components/edit/m.edit.component';
 import { MoviePageRoutingModule } from './movie-routing.module';
 import { MoviePage } from './movie.page';
+import { FooterModule } from '../shared/components/footer/footer.model';
 
 @NgModule({
   imports: [
@@ -28,6 +29,7 @@ import { MoviePage } from './movie.page';
     PipesModule,
     RangeModule,
     RatingBarModule,
+    FooterModule
   ],
   declarations: [
     MoviePage,

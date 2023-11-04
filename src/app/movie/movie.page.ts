@@ -1,11 +1,10 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RangeCustomEvent } from '@ionic/angular';
+import { RangeCustomEvent, SelectCustomEvent } from '@ionic/angular';
 import { BehaviorSubject, switchMap } from 'rxjs';
 import { Item } from '../shared/interfaces/list.interfaces';
 import { Movie } from '../shared/interfaces/movie.interfaces';
 import { MovieService } from '../tabs/services/movie.service';
-import { RangeComponent } from '../shared/components/range/range.component';
 
 @Component({
   selector: 'app-movie',
@@ -17,10 +16,7 @@ export class MoviePage {
   fullMovieList: Item[] = [];
   rating$ = new BehaviorSubject<number>(0);
   search$ = new BehaviorSubject<string>('');
-  @ViewChild(RangeComponent) rating!: RangeComponent;
-
   orderTo: string = '';
-
   titlePage: string = 'Movie';
 
   constructor(
@@ -30,14 +26,11 @@ export class MoviePage {
   ) {}
 
   ionViewWillEnter() {
-    // prendo il valore di search$ inizialmente vuoto ''
     this.search$
       .pipe(
-        // questo valore sarà il title che verrà poi immesso nella get del service
         switchMap((title) => {
           return this._movieService.getList(title);
         }),
-        // avuta la lista dalla chiamata, la mappo per la lista Item[]
         switchMap((movies) => {
           this.fullMovieList = movies.map((movie: Movie) => {
             return {
@@ -48,16 +41,13 @@ export class MoviePage {
               year: movie.year,
             };
           });
-          // fatto il map() ritorno il rating che avrà inizialmente valore 0
           return this.rating$;
         })
       )
       .subscribe((rating) => {
-        // sottoscrivo e con il rating filtro la lista
         this._getListWithRating(rating);
       });
   }
-  // prendo il valore emesso e lo inserisco nel BehaviorSubject con next()
   searchInput(inputValue: string) {
     this.search$.next(inputValue);
   }
@@ -89,8 +79,8 @@ export class MoviePage {
       // this._getList();
     });
   }
-
-  orderByRating(value: string) {
-    this.orderTo = value;
+  sortByRating(event: Event) {
+    this.movie_list = this.fullMovieList;
+    return this.orderTo = (event as CustomEvent).detail.value;
   }
 }

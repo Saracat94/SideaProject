@@ -7,14 +7,15 @@
     [showOrderTo]="true"
     (addEvent)="clickItemCreate()"
     (searchInput)="searchInput($event)"
-    (orderChange)="orderByRating($event)"
     (ionChange)="ratingRange($event)"
+    (ionChange)="sortByRating($event)"
   ></app-header>
   <ion-content [fullscreen]="true">
     <app-list
-      [items_list]="movie_list  | sortByRating: orderTo"
+      [items_list]="movie_list | sortByRating: orderTo"
       (clickItem)="clickItem($event)"
       (clickItemEdit)="clickItemEdit($event)"
       (clickItemRemove)="clickItemRemove($event)"
-    ></app-list> </ion-content
+    ></app-list></ion-content
 ></ion-header>
+<app-footer></app-footer>
