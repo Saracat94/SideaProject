@@ -12,6 +12,7 @@ import { MovieService } from '../tabs/services/movie.service';
   styleUrls: ['movie.page.scss'],
 })
 export class MoviePage {
+  movieSelected: Item | undefined;
   movie_list: Item[] = [];
   fullMovieList: Item[] = [];
   rating$ = new BehaviorSubject<number>(0);
@@ -53,7 +54,7 @@ export class MoviePage {
   }
 
   ratingRange(rating: Event) {
-    this.rating$.next(Number((rating as RangeCustomEvent).detail.value));
+    this.rating$.next((rating as CustomEvent).detail.value);
   }
 
   private _getListWithRating(rating: number) {
@@ -67,7 +68,8 @@ export class MoviePage {
   }
 
   clickItem(id: string) {
-    this._router.navigate(['detail', id], { relativeTo: this.route });
+    this.movieSelected = this.movie_list.find(movie => movie.id === id)  
+    // this._router.navigate(['detail', id], { relativeTo: this.route });
   }
 
   clickItemEdit(id: string) {

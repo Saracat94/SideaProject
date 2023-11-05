@@ -1,5 +1,35 @@
-  <ion-footer>
-    <ion-toolbar>
-      <ion-title>Footer</ion-title>
-    </ion-toolbar>
-  </ion-footer>
+<ion-footer *ngIf="movieDetail">
+  <ion-item button detail="true" detail-icon="caret-forward-outline" (click) = "seeMovieDetail(movieDetail.id)">
+    <ion-label>
+      <h1>{{ movieDetail.name }}</h1>
+      <p>
+        <span>Anno: {{ movieDetail.year }} ||</span
+        ><span *ngFor="let celebrity of movieDetail.cast"
+          ><ng-container *ngIf="celebrity.category === 'director'">
+            Regia: {{ celebrity.celebrityName }} ||</ng-container
+          ></span
+        ><span> Sceneggiatura: </span><span *ngFor="let celebrity of movieDetail.cast"
+          ><ng-container
+            *ngIf="
+              celebrity.category !== 'director' &&
+              celebrity.category !== 'actor' &&
+              celebrity.category !== 'actress'
+            "
+          >
+            {{ celebrity.celebrityName }}, </ng-container
+          ></span
+        >
+      </p>
+      <span>Star: </span>
+      <span *ngFor="let celebrity of movieDetail.cast">
+        <ng-container
+          *ngIf="
+            celebrity.category === 'actor' || celebrity.category === 'actress'
+          "
+        >
+          {{ celebrity.celebrityName }},
+        </ng-container>
+      </span>
+    </ion-label>
+  </ion-item>
+</ion-footer>
