@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { RangeCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-header',
@@ -12,10 +13,12 @@ export class HeaderComponent {
   @Input() showBack = true;
   @Input() showRange = false;
   @Input() showOrderTo = false;
+  @Input() showSearchbar = false;
 
   @Output() addEvent = new EventEmitter<void>();
   @Output() searchInput = new EventEmitter<string>();
-  @Output() orderChange = new EventEmitter<string>();
+  @Output() orderRating = new EventEmitter<string>();
+  @Output() ratingRange = new EventEmitter<number>();
   
 
   formSearch;
@@ -33,9 +36,16 @@ export class HeaderComponent {
         this.searchInput.emit(inputValue);
       });
   }
+  orderChange(event: Event) {
+    this.orderRating.emit((event as CustomEvent).detail.value)
+  }
+
+  ratingChange(event: Event) {
+    this.ratingRange.emit((event as CustomEvent).detail.value);
+  }
 
   clickItemCreate() {
     this.addEvent.emit();
   }
-
+  
 }

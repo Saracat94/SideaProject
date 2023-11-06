@@ -8,9 +8,10 @@ import { RangeCustomEvent, RangeValue } from "@ionic/core";
     styleUrls: ['range.component.scss'],
   })
   export class RangeComponent {
-    lastEmittedValue: RangeValue = 0;
+   @Output() lastEmittedValue: RangeValue | undefined;
 
-    onIonChange(ev: Event) {
+    ratingChange(ev: Event) {
       this.lastEmittedValue = (ev as RangeCustomEvent).detail.value;
     }
+
   }

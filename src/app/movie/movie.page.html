@@ -5,10 +5,11 @@
     [showBack]="false"
     [showRange]="true"
     [showOrderTo]="true"
+    [showSearchbar]="true"
     (addEvent)="clickItemCreate()"
     (searchInput)="searchInput($event)"
-    (ratingRange)="ratingRange($event)"
-    (ionChange)="sortByRating($event)"
+    (orderRating)="sortByRating($event)"
+    (ratingRange) = "ratingRange($event)"
   ></app-header>
   <ion-content [fullscreen]="true">
     <app-list

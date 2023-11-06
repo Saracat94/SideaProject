@@ -46,21 +46,19 @@ export class MoviePage {
         })
       )
       .subscribe((rating) => {
-        this._getListWithRating(rating);
+        return this._getListWithRating(rating);
       });
   }
   searchInput(inputValue: string) {
     this.search$.next(inputValue);
   }
 
-  ratingRange(rating: Event) {
-    this.rating$.next((rating as CustomEvent).detail.value);
+  ratingRange(rating: number) {
+    this.rating$.next(rating);
   }
 
   private _getListWithRating(rating: number) {
-    this.movie_list = this.fullMovieList.filter(
-      (movie) => (movie.rating || 0) > rating / 10
-    );
+    this.movie_list = this.fullMovieList.filter((movie) => (movie.rating || 0) > rating / 10);
   }
 
   clickItemCreate() {
@@ -68,7 +66,7 @@ export class MoviePage {
   }
 
   clickItem(id: string) {
-    this.movieSelected = this.movie_list.find(movie => movie.id === id)  
+    this.movieSelected = this.movie_list.find((movie) => movie.id === id);
     // this._router.navigate(['detail', id], { relativeTo: this.route });
   }
 
@@ -81,8 +79,7 @@ export class MoviePage {
       // this._getList();
     });
   }
-  sortByRating(event: Event) {
-    this.movie_list = this.fullMovieList;
-    return this.orderTo = (event as CustomEvent).detail.value;
+  sortByRating(order: string) {
+    return this.orderTo = order;
   }
 }
