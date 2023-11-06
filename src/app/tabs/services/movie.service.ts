@@ -1,7 +1,20 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, first, map, tap } from 'rxjs';
-import { Movie, ResponseDto } from 'src/app/shared/interfaces/movie.interfaces';
+import {
+  BehaviorSubject,
+  Observable,
+  Subject,
+  first,
+  map,
+  switchMap,
+  take,
+  tap,
+} from 'rxjs';
+import {
+  Movie,
+  MovieParams,
+  ResponseDto,
+} from 'src/app/shared/interfaces/movie.interfaces';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -9,69 +22,44 @@ import { environment } from 'src/environments/environment';
 })
 export class MovieService {
   refresh$ = new BehaviorSubject<boolean>(true);
+  movies$ = new Observable<Movie[]>();
+  queryParams: MovieParams;
+  private _baseUrl = environment.baseUrl;
 
-  private _baseUrl = '';
-
-  constructor(private readonly _http: HttpClient) {
-    this._baseUrl = environment.baseUrl;
+  set params(value: MovieParams) {
+    this.queryParams = value;
+    this.refresh();
   }
 
-  private movies_list: Movie[] = [
-    {
-      id: 'tt0120804',
-      title: "Il Signore degli Anelli: La Compagnia dell'Anello",
-      year: 2001,
-      runningTime: 178,
-      genres: 'Fantasy, Avventura',
-      cast: [],
-      rating: {},
-      country: [],
-    },
-    {
-      id: 'tt0068646',
-      title: 'Il Padrino',
-      year: 1972,
-      runningTime: 175,
-      genres: 'Crime, Dramma',
-      cast: [],
-      rating: {},
-      country: [],
-    },
-    {
-      id: 'tt0109830',
-      title: 'Forrest Gump',
-      year: 1994,
-      runningTime: 142,
-      genres: 'Dramma, Romantico',
-      cast: [],
-      rating: {},
-      country: [],
-    },
-    {
-      id: 'tt0110912',
-      title: 'Pulp Fiction',
-      year: 1994,
-      runningTime: 154,
-      genres: 'Crime, Dramma',
-      cast: [],
-      rating: {},
-      country: [],
-    },
-    {
-      id: 'tt0076759',
-      title: 'Star Wars: Una nuova speranza',
-      year: 1977,
-      runningTime: 121,
-      genres: 'Fantasy, Sci-Fi',
-      cast: [],
-      rating: {},
-      country: [],
-    },
-  ];
+  constructor(private readonly _http: HttpClient) {
+    this.queryParams = {
+      page: 0,
+      size: 20,
+    };
 
-  private movieList = new Subject<Movie[]>();
+    this.movies$ = this.refresh$.pipe(
+      switchMap(() => {
+        const params = this.getParams();
+        return this._http.get<ResponseDto>(`${this._baseUrl}/movies`, {
+          params,
+        });
+      }),
+      map((responseMovies) => responseMovies.movies)
+    );
+  }
 
-  MovieListObs = this.movieList.asObservable();
+  getParams() {
+    let params: HttpParams = new HttpParams();
+    if (this.queryParams.title)
+      params = params.set('title', this.queryParams.title);
+    if (this.queryParams.orderBy)
+      params = params.set('order_by', this.queryParams.orderBy);
+    if (this.queryParams.page)
+      params = params.set('page', this.queryParams.page);
+    if (this.queryParams.size)
+      params = params.set('size', this.queryParams.size);
+    return params;
+  }
 
   getList(title: string, page = 0): Observable<Movie[]> {
     return this._http
@@ -96,26 +84,26 @@ export class MovieService {
     );
   }
 
-  private _numId = this.movies_list.length;
-
   create(createdMovie: Movie): Observable<Movie> {
-    const newId = `tt${(this._numId + 1).toString().padStart(7, '0')}`;
-    this._numId += 1;
-    const newMovie: Movie = {
-      id: newId,
-      title: createdMovie.title,
-      year: createdMovie.year,
-      runningTime: createdMovie.runningTime,
-      genres: createdMovie.genres,
-      // cast: [],
-      rating: {
-        averageRating: 0,
-        numVotes: 0,
-      },
-      // country: []
-    };
-
-    return this._http.post<Movie>(`${this._baseUrl}/movies`, newMovie);
+    return this.movies$.pipe(
+      take(1),
+      switchMap((movies) => {
+        const _numId = movies.length;
+        const newId = `tt${_numId + 1}.toString().padStart(7, '0')`;
+        const newMovie: Movie = {
+          id: newId,
+          title: createdMovie.title,
+          year: createdMovie.year,
+          runningTime: createdMovie.runningTime,
+          genres: createdMovie.genres,
+          rating: {
+            averageRating: 0,
+            numVotes: 0,
+          },
+        };
+        return this._http.post<Movie>(`${this._baseUrl}/movies`, newMovie);
+      })
+    );
   }
 
   refresh() {
