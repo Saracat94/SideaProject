@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LinksComponent } from './links.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   imports: [
@@ -10,7 +11,8 @@ import { LinksComponent } from './links.component';
     CommonModule,
     FormsModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterModule,
   ],
   declarations: [LinksComponent],
   exports: [LinksComponent]
