@@ -13,9 +13,9 @@ import { Component, Input, OnChanges, OnInit } from "@angular/core";
     }
     
     progressColor(value: number){
-      if(value > 8){
+      if(value >= 8){
         return 'primary';
-      } else if (value >= 4 && value < 8){
+      } else if (value > 4 && value < 8){
         return  'secondary';
       } else {
         return  'danger';

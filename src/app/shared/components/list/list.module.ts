@@ -6,6 +6,7 @@ import { PipesModule } from '../../pipe/pipes.module';
 import { ListComponent } from './list.component';
 import { RatingBarModule } from '../rating_bar/ratingbar.module';
 import { FooterModule } from '../footer/footer.model';
+import { ShitColorDirective } from './shit-color.directive';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { FooterModule } from '../footer/footer.model';
     RatingBarModule,
     FooterModule
   ],
-  declarations: [ListComponent],
+  declarations: [ListComponent, ShitColorDirective],
   exports: [ListComponent],
 })
 export class ListModule {}

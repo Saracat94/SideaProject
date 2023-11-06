@@ -9,6 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ToIntPipe } from './shared/pipe/to-int.pipe';
+import { ShitColorDirective } from './shared/components/list/shit-color.directive';
+
 
 
 @NgModule({

@@ -1,6 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RangeCustomEvent, SelectCustomEvent } from '@ionic/angular';
 import { BehaviorSubject, switchMap } from 'rxjs';
 import { Item } from '../shared/interfaces/list.interfaces';
 import { Movie } from '../shared/interfaces/movie.interfaces';
@@ -58,7 +57,9 @@ export class MoviePage {
   }
 
   private _getListWithRating(rating: number) {
-    this.movie_list = this.fullMovieList.filter((movie) => (movie.rating || 0) > rating / 10);
+    this.movie_list = this.fullMovieList.filter(
+      (movie) => (movie.rating || 0) > rating / 10
+    );
   }
 
   clickItemCreate() {
@@ -80,6 +81,6 @@ export class MoviePage {
     });
   }
   sortByRating(order: string) {
-    return this.orderTo = order;
+    return (this.orderTo = order);
   }
 }

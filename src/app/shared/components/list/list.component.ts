@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Item } from '../../interfaces/list.interfaces';
+import { InfiniteScrollCustomEvent } from '@ionic/angular';
 
 @Component({
   selector: 'app-list',
@@ -8,6 +9,8 @@ import { Item } from '../../interfaces/list.interfaces';
   styleUrls: ['list.component.scss'],
 })
 export class ListComponent {
+  color = ''
+
   @Input() items_list: Item[] = [];
 
   @Output() clickItem = new EventEmitter<string>();
