@@ -12,6 +12,7 @@ import { Item } from '../shared/interfaces/list.interfaces';
 export class CelebrityPage {
 
   celebrities_list: Item[] = [];
+  celebritySelected: Item | undefined;
 
   titlePage: string = "Celebrities";
 
@@ -38,6 +39,7 @@ export class CelebrityPage {
     this._router.navigate(['create'], { relativeTo: this.route });
   }
   clickItem(id: string) {
+    // this.celebritySelected = this.celebrities_list.find((celebrity) => celebrity.id === id);
     this._router.navigate(['detail', id], { relativeTo: this.route });
   }
 

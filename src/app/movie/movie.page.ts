@@ -76,10 +76,9 @@ export class MoviePage {
   }
 
   clickItemRemove(id: string) {
-    this._movieService.delete(id).subscribe((selectedMovie: Movie) => {
-      // this._getList();
-    });
+    this._movieService.delete(id);
   }
+
   sortByRating(order: string) {
     return (this.orderTo = order);
   }

@@ -7,9 +7,15 @@
     </ion-item-options>
 
     <ion-item>
-      <ion-label slot="start" (click)="clickItem.emit(item.id)"
+      <ion-avatar *ngIf="isCelebrity" aria-hidden="true" slot="start">
+        <img
+          alt=""
+          src="https://ionicframework.com/docs/img/demos/avatar.svg"
+        />
+      </ion-avatar>
+      <ion-label (click)="clickItem.emit(item.id)"
         ><h2 [appShitColor]="item.rating">{{ item.name }}</h2>
-        <span *ngIf = "item.cast">Cast: </span>
+        <span *ngIf="item.cast">Cast: </span>
         <span *ngFor="let actor of item.cast"
           ><ng-container
             *ngIf="actor.category === 'actor' || actor.category === 'actress'"

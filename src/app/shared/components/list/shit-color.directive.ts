@@ -5,7 +5,9 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 })
 export class ShitColorDirective {
   @Input() set appShitColor(rating: number | undefined) {
-    if ((rating || 0) <= 0.4) {
+    if (rating == undefined) {
+      this._el.nativeElement.style.color = 'default';
+    } else if (rating <= 0.4) {
       this._el.nativeElement.style.color = 'brown';
     }
   }

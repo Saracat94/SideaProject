@@ -1,20 +1,20 @@
-<ion-footer *ngIf="movieDetail">
+<ion-footer *ngIf="itemDetail">
   <ion-item
     button
     detail="true"
     detail-icon="caret-forward-outline"
-    (click)="seeMovieDetail(movieDetail.id)"
+    (click)="seeDetail(itemDetail.id)"
   >
     <ion-label>
-      <h1>{{ movieDetail.name }}</h1>
+      <h1>{{ itemDetail.name }}</h1>
       <p>
-        <span>Anno: {{ movieDetail.year }} ||</span
-        ><span *ngFor="let celebrity of movieDetail.cast"
+        <span>Anno: {{ itemDetail.year }} ||</span
+        ><span *ngFor="let celebrity of itemDetail.cast"
           ><ng-container *ngIf="celebrity.category === 'director'">
             Regia: {{ celebrity.celebrityName }} ||</ng-container
           ></span
         ><span> Sceneggiatura: </span
-        ><span *ngFor="let celebrity of movieDetail.cast"
+        ><span *ngFor="let celebrity of itemDetail.cast"
           ><ng-container
             *ngIf="
               celebrity.category !== 'director' &&
@@ -27,7 +27,7 @@
         >
       </p>
       <span>Star: </span>
-      <span *ngFor="let celebrity of movieDetail.cast">
+      <span *ngFor="let celebrity of itemDetail.cast">
         <ng-container
           *ngIf="
             celebrity.category === 'actor' || celebrity.category === 'actress'

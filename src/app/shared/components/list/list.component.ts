@@ -11,6 +11,8 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
 export class ListComponent {
   color = ''
 
+  @Input() isCelebrity: boolean = false;
+
   @Input() items_list: Item[] = [];
 
   @Output() clickItem = new EventEmitter<string>();

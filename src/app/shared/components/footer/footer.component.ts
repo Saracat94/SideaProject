@@ -1,9 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Movie } from '../../interfaces/movie.interfaces';
-import { MovieService } from 'src/app/tabs/services/movie.service';
-import { Item } from '../../interfaces/list.interfaces';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Item } from '../../interfaces/list.interfaces';
 
 @Component({
   selector: 'app-footer',
@@ -11,19 +8,11 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['footer.component.scss'],
 })
 export class FooterComponent {
-  // selectedMovieId: string | undefined;
-  @Input() movieDetail: Item | undefined;
+  @Input() itemDetail: Item | undefined;
 
-  constructor(private _router: Router,
-    private _route: ActivatedRoute){
-  //   if (this.selectedMovieId) {
-  //     this._movieService.getById(this.selectedMovieId).subscribe((result: Movie) => {
-  //         this.movie = result;
-  //     })
-  // }
-  }
+  constructor(private _router: Router, private _route: ActivatedRoute) {}
 
-  seeMovieDetail(id: string){
+  seeDetail(id: string) {
     this._router.navigate(['detail', id], { relativeTo: this._route });
   }
 }

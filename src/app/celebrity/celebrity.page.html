@@ -9,9 +9,11 @@
 
 <ion-content [fullscreen]="true">
   <app-list 
+  [isCelebrity] = "true"
   [items_list]="celebrities_list"
   (clickItem) = "clickItem($event)"
   (clickItemEdit) = "clickItemEdit($event)"
   (clickItemRemove) = "clickItemRemove($event)"
   ></app-list>
+  <app-footer [itemDetail] = "celebritySelected"></app-footer>
 </ion-content>

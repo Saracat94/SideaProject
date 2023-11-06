@@ -10,6 +10,7 @@ import { CelebrityEditComponent } from './components/edit/c.edit.component.';
 import { CelebrityCreateComponent } from './components/create/c.create.component';
 import { HeaderModule } from '../shared/components/header/header.module';
 import { LinksModule } from '../shared/components/links/links.module';
+import { FooterModule } from '../shared/components/footer/footer.model';
 
 @NgModule({
   imports: [
@@ -20,7 +21,8 @@ import { LinksModule } from '../shared/components/links/links.module';
     ListModule,
     ReactiveFormsModule,
     HeaderModule,
-    LinksModule
+    LinksModule,
+    FooterModule
   ],
   declarations: [CelebrityPage, CelebrityDetailComponent, CelebrityEditComponent, CelebrityCreateComponent]
 })
