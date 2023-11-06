@@ -9,16 +9,6 @@ export interface Movie {
   country?: Country[];
 }
 
-export interface ResponseDto<T = any> {
-  movies: T[];
-  pagination: {
-    currentPage: number;
-    pageSize: number;
-    totalElements: number;
-    totalPages: number;
-  };
-}
-
 export interface MovieCelebrity {
   celebrityName: string;
   celebrityId: string;
@@ -38,3 +28,20 @@ export interface Country {
   region: string;
   language: string;
 }
+
+export interface ResponseDto<T = any> {
+  movies: T[];
+  pagination: {
+    currentPage: number;
+    pageSize: number;
+    totalElements: number;
+    totalPages: number;
+  };
+}
+export interface MovieParams {
+  title?: string;
+  orderBy?: string;
+  size?: number;
+  page?: number;
+}
+

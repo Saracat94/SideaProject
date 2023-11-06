@@ -5,6 +5,15 @@ export interface Celebrity {
     deathYear?: number;
     movies?: MovieCelebrity[];
   }
+  export interface ResponseDto<T = any> {
+    celebrities: T[];
+    pagination: {
+      currentPage: number;
+      pageSize: number;
+      totalElements: number;
+      totalPages: number;
+    };
+  }
   
   export interface MovieCelebrity {
     celebrityName: string;

@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CelebrityPage } from './celebrity.page';
-import { CelebrityEditComponent } from './components/edit/c.edit.component.';
-import { CelebrityDetailComponent } from './components/detail/c.detail.component';
 import { CelebrityCreateComponent } from './components/create/c.create.component';
+import { CelebrityDetailComponent } from './components/detail/c.detail.component';
+import { CelebrityEditComponent } from './components/edit/c.edit.component.';
 
 const routes: Routes = [
   {
@@ -21,11 +21,11 @@ const routes: Routes = [
   {
     path: 'create',
     component: CelebrityCreateComponent,
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class CelebrityPageRoutingModule {}

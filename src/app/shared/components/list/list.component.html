@@ -9,7 +9,7 @@
     <ion-item>
       <ion-label slot="start" (click)="clickItem.emit(item.id)"
         ><h2 [appShitColor]="item.rating">{{ item.name }}</h2>
-        <span>Cast: </span>
+        <span *ngIf = "item.cast">Cast: </span>
         <span *ngFor="let actor of item.cast"
           ><ng-container
             *ngIf="actor.category === 'actor' || actor.category === 'actress'"
@@ -20,7 +20,7 @@
       </ion-label>
       <ion-label slot="end">
         <span>{{ item.year }}</span>
-        <p>(rating: {{ item.rating | toInt : 2 }})</p>
+        <p *ngIf="item.rating">(rating: {{ item.rating | toInt : 2 }})</p>
       </ion-label>
     </ion-item>
     <app-ratingbar *ngIf="item.rating" [value]="item.rating"></app-ratingbar>
